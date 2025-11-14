@@ -1,0 +1,8 @@
+C:\Users\gabit\OneDrive\Desktop\ErgoMind.IoT.Api\obj\Debug\net8.0\ErgoMind.IoT.Api.csproj.AssemblyReference.cache
+C:\Users\gabit\OneDrive\Desktop\ErgoMind.IoT.Api\obj\Debug\net8.0\ErgoMind.IoT.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gabit\OneDrive\Desktop\ErgoMind.IoT.Api\obj\Debug\net8.0\ErgoMind.IoT.Api.AssemblyInfoInputs.cache
+C:\Users\gabit\OneDrive\Desktop\ErgoMind.IoT.Api\obj\Debug\net8.0\ErgoMind.IoT.Api.AssemblyInfo.cs
+C:\Users\gabit\OneDrive\Desktop\ErgoMind.IoT.Api\obj\Debug\net8.0\ErgoMind.IoT.Api.csproj.CoreCompileInputs.cache
+C:\Users\gabit\OneDrive\Desktop\ErgoMind.IoT.Api\obj\Debug\net8.0\ErgoMind.IoT.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\gabit\OneDrive\Desktop\ErgoMind.IoT.Api\obj\Debug\net8.0\ErgoMind.IoT.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\gabit\OneDrive\Desktop\ErgoMind.IoT.Api\obj\Debug\net8.0\ErgoMind.IoT.Api.sourcelink.json
