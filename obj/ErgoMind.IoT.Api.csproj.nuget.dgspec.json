@@ -63,7 +63,7 @@
             },
             "Oracle.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.23.26000, )"
+              "version": "[8.21.140, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

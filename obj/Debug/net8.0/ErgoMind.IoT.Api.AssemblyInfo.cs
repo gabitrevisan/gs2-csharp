@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ErgoMind.IoT.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49702edd68847058bdb4c9b087f5a57aa960990f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61263cb1c74092bd679558a9a0279e0d0d199111")]
 [assembly: System.Reflection.AssemblyProductAttribute("ErgoMind.IoT.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ErgoMind.IoT.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

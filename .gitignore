@@ -1,0 +1,42 @@
+# Arquivo .gitignore Padrão para .NET (C#)
+
+## Arquivos de Configuração Local (NÃO ENVIAR SENHAS!)
+# Ignora as configurações de desenvolvimento local, que podem ter senhas.
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+
+## Pastas de Build (Binários e Objetos)
+# Estas pastas são geradas automaticamente pelo `dotnet build` e `dotnet run`.
+obj/
+bin/
+
+## Arquivos de Solução e Usuário do Visual Studio
+# Ignora arquivos de configuração pessoal do editor.
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Pasta .vs (Cache do Visual Studio)
+# Pasta de cache do Visual Studio IDE.
+.vs/
+.vscode/
+
+## Arquivos de Log
+*.log
+*.log.*
+
+## Pacotes NuGet
+# Pacotes baixados não devem ser enviados. O arquivo .csproj já diz quais baixar.
+packages/
+*.nupkg
+
+## Arquivos do Entity Framework Core
+# Ignora o cache de design do EF Core.
+efpt.config.json
+
+## Arquivos de Sistema Operacional
+# Arquivos de cache do Windows e macOS
+Thumbs.db
+.DS_Store

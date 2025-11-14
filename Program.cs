@@ -10,11 +10,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // 2. Adiciona o DbContext ao contêiner de serviços, configurando-o para usar Oracle
 builder.Services.AddDbContext<ApiDbContext>(options =>
-    options.UseOracle(connectionString) // Trocado de UseSqlServer para UseOracle
+    options.UseOracle(connectionString)
 );
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -23,7 +22,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "ErgoMind IoT API",
         Version = "v1",
-        [cite_start]Description = "API Gateway para receber alertas de IoT (postura e inatividade) [cite: 37, 39]"
+        Description = "API Gateway para receber alertas de IoT (postura e inatividade) [C#]"
     });
 });
 
@@ -44,63 +43,84 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// ---- INÍCIO DOS ENDPOINTS DA API ----
 // Agrupa todos os endpoints sob o prefixo /api/v1
-[cite_start]
 var apiV1 = app.MapGroup("/api/v1");
 
-// Endpoint: POST /api/v1/alertas
-[cite_start]// Objetivo: Registrar um novo alerta vindo do sensor IoT
-[cite_start]
 apiV1.MapPost("/alertas", async (AlertaIoT novoAlerta, ApiDbContext db) =>
 {
-    // Garante que o timestamp seja gerado pelo servidor
     novoAlerta.Timestamp = DateTime.UtcNow;
-
     db.Alertas.Add(novoAlerta);
     await db.SaveChangesAsync();
-
-    [cite_start]// Retorna o status 201 Created
-    [cite_start]
     return Results.Created($"/api/v1/alertas/{novoAlerta.Id}", novoAlerta);
 })
 .WithName("CriarAlerta")
 .WithSummary("Registra um novo alerta de IoT (postura ou inatividade).")
-.WithOpenApi(); // Adiciona ao Swagger
-
-// Endpoint: GET /api/v1/alertas
-// Objetivo: Consultar os alertas registrados
-[cite_start]// Cumpre: Requisito 1 (Verbo GET)
+.WithOpenApi();
 
 apiV1.MapGet("/alertas", async (ApiDbContext db) =>
 {
     var alertas = await db.Alertas.OrderByDescending(a => a.Timestamp).ToListAsync();
-    
-    [cite_start]// Retorna status 200 OK
-    return Results.Ok(alertas); 
+    return Results.Ok(alertas);
 })
 .WithName("ListarAlertas")
 .WithSummary("Lista todos os alertas de IoT registrados.")
-.WithOpenApi(); // Adiciona ao Swagger
-
-// Endpoint: GET /api/v1/alertas/{id}
-// Objetivo: Consultar um alerta específico
-[cite_start]// Cumpre: Requisito 1 (Verbo GET e Status Codes)
+.WithOpenApi();
 
 apiV1.MapGet("/alertas/{id:int}", async (int id, ApiDbContext db) =>
+{
+    var alerta = await db.Alertas.FindAsync(id);
+    if (alerta == null)
+    {
+        return Results.NotFound(new { message = "Alerta não encontrado." });
+    }
+    return Results.Ok(alerta);
+})
+.WithName("BuscarAlertaPorId")
+.WithSummary("Busca um alerta específico pelo seu ID.")
+.WithOpenApi();
+
+apiV1.MapPut("/alertas/{id:int}", async (int id, AlertaIoT alertaAtualizado, ApiDbContext db) =>
 {
     var alerta = await db.Alertas.FindAsync(id);
 
     if (alerta == null)
     {
-        [cite_start]// Retorna status 404 Not Found (Boa Prática REST)
         return Results.NotFound(new { message = "Alerta não encontrado." });
     }
-    
-    [cite_start]// Retorna status 200 OK (Boa Prática REST)
+
+    // Atualiza os campos
+    alerta.UsuarioId = alertaAtualizado.UsuarioId;
+    alerta.TipoAlerta = alertaAtualizado.TipoAlerta;
+    // O Timestamp original é mantido
+
+    db.Alertas.Update(alerta);
+    await db.SaveChangesAsync();
+
     return Results.Ok(alerta);
 })
-.WithName("BuscarAlertaPorId")
-.WithSummary("Busca um alerta específico pelo seu ID.")
-.WithOpenApi(); // Adiciona ao Swagger
+.WithName("AtualizarAlerta")
+.WithSummary("Atualiza um alerta de IoT existente.")
+.WithOpenApi();
+
+apiV1.MapDelete("/alertas/{id:int}", async (int id, ApiDbContext db) =>
+{
+    var alerta = await db.Alertas.FindAsync(id);
+
+    if (alerta == null)
+    {
+        return Results.NotFound(new { message = "Alerta não encontrado." });
+    }
+
+    db.Alertas.Remove(alerta);
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
+})
+.WithName("ExcluirAlerta")
+.WithSummary("Exclui um alerta de IoT específico.")
+.WithOpenApi();
+
+// ---- FIM DOS ENDPOINTS DA API ----
 
 app.Run();
