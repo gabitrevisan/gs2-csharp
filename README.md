@@ -100,3 +100,15 @@ Use o link do deploy acima para acessar o Swagger. Lá, você pode executar o ci
 | **4. Atualizar Alerta** | `PUT` | `/api/v1/alertas/{id}` | `{"usuarioId": "RM-TESTE-PUT", "tipoAlerta": "Teste Atualizado"}` | `200 OK` (com os dados atualizados) |
 | **5. Excluir Alerta** | `DELETE` | `/api/v1/alertas/{id}` | (Use o ID do passo 1) | `204 No Content` |
 | **6. Confirmar Exclusão**| `GET` | `/api/v1/alertas/{id}` | (Use o ID do passo 1) | `404 Not Found` (provando que foi excluído) |
+
+---
+
+## 🗂️ 8. Diagrama da Aplicação
+
+O diagrama ilustra a arquitetura da **API C# (.NET 8 Minimal API)**. Ele destaca o fluxo do CRUD de 'Alertas' (`/api/v1/alertas`), que atua como o Gateway de Dados IoT, sua interação direta com o `ApiDbContext` (Entity Framework) e a aplicação automática de `Migrations` na inicialização.
+
+<div align="center">
+    <img src="diagram.png" alt="Diagrama de Arquitetura" width="600"/>
+</div>
+
+---
