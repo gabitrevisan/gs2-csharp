@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Pega a connection string do appsettings.json
+// 1. Pega a connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// 2. Adiciona o DbContext ao contêiner de serviços, configurando-o para usar Oracle
+// 2. Adiciona o DbContext para Oracle
 builder.Services.AddDbContext<ApiDbContext>(options =>
     options.UseOracle(connectionString)
 );
@@ -17,7 +17,6 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    // Adiciona uma descrição para a v1 no Swagger
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "ErgoMind IoT API",
@@ -29,22 +28,20 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    // Configura o Swagger UI para usar o endpoint da v1
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ErgoMind IoT API v1");
-        options.RoutePrefix = string.Empty; // Acessa o Swagger pela raiz (http://localhost:...)
-    });
-}
+// Manda a aplicação aplicar as migrations pendentes ao iniciar.
+app.ApplyMigrations();
 
-app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "ErgoMind IoT API v1");
+    options.RoutePrefix = string.Empty; // Define o Swagger como página inicial
+});
+
+// A linha abaixo foi comentada pois estava causando problemas no Azure
+// app.UseHttpsRedirection(); 
 
 // ---- INÍCIO DOS ENDPOINTS DA API ----
-// Agrupa todos os endpoints sob o prefixo /api/v1
 var apiV1 = app.MapGroup("/api/v1");
 
 apiV1.MapPost("/alertas", async (AlertaIoT novoAlerta, ApiDbContext db) =>
@@ -80,23 +77,18 @@ apiV1.MapGet("/alertas/{id:int}", async (int id, ApiDbContext db) =>
 .WithSummary("Busca um alerta específico pelo seu ID.")
 .WithOpenApi();
 
+// ---- CORREÇÃO DA ROTA AQUI ----
 apiV1.MapPut("/alertas/{id:int}", async (int id, AlertaIoT alertaAtualizado, ApiDbContext db) =>
 {
     var alerta = await db.Alertas.FindAsync(id);
-
     if (alerta == null)
     {
         return Results.NotFound(new { message = "Alerta não encontrado." });
     }
-
-    // Atualiza os campos
     alerta.UsuarioId = alertaAtualizado.UsuarioId;
     alerta.TipoAlerta = alertaAtualizado.TipoAlerta;
-    // O Timestamp original é mantido
-
     db.Alertas.Update(alerta);
     await db.SaveChangesAsync();
-
     return Results.Ok(alerta);
 })
 .WithName("AtualizarAlerta")
@@ -106,21 +98,41 @@ apiV1.MapPut("/alertas/{id:int}", async (int id, AlertaIoT alertaAtualizado, Api
 apiV1.MapDelete("/alertas/{id:int}", async (int id, ApiDbContext db) =>
 {
     var alerta = await db.Alertas.FindAsync(id);
-
     if (alerta == null)
     {
         return Results.NotFound(new { message = "Alerta não encontrado." });
     }
-
     db.Alertas.Remove(alerta);
     await db.SaveChangesAsync();
-
     return Results.NoContent();
 })
 .WithName("ExcluirAlerta")
 .WithSummary("Exclui um alerta de IoT específico.")
 .WithOpenApi();
 
+
 // ---- FIM DOS ENDPOINTS DA API ----
 
 app.Run();
+
+
+// ---- CLASSE HELPER PARA APLICAR MIGRATIONS ----
+public static class DatabaseMigration
+{
+    public static void ApplyMigrations(this IApplicationBuilder app)
+    {
+        using var scope = app.ApplicationServices.CreateScope();
+        using var dbContext = scope.ServiceProvider.GetRequiredService<ApiDbContext>();
+        
+        try
+        {
+            Console.WriteLine("--- Tentando aplicar migrations... ---");
+            dbContext.Database.Migrate();
+            Console.WriteLine("--- Migrations aplicadas com sucesso. ---");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"--- ERRO AO APLICAR MIGRATIONS: {ex.Message} ---");
+        }
+    }
+}
