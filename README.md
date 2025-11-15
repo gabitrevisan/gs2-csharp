@@ -71,6 +71,8 @@ dotnet run
 
 A API estará acessível localmente em http://localhost:5070 (ou https_port similar).
 
+---
+
 ## 🔐 4. Análise de Autenticação (Login/Senha vs. API Key)
 O requisito da entrega menciona instruções de acesso como "(usuário, senha, ... api key, etc)".
 
@@ -80,15 +82,21 @@ Um sistema de usuário/senha não é aplicável a esta API específica. Conforme
 ### Como seria a proteção real
 Em um ambiente de produção, esta API C# não seria pública. Ela seria protegida por uma "API Key". O dispositivo IoT (sensor) enviaria essa chave secreta no header da requisição para provar que tem permissão para registrar um alerta.
 
+---
+
 ## 🚀 5. Link do Deploy (Azure)
 A API foi publicada em um ambiente de nuvem (Azure App Service). A documentação interativa do Swagger está disponível publicamente no link abaixo:
 
 URL do Deploy no AzureWebsites: [aqui](https://ergomind-api-2025-eqb7afdca3dmb5ff.brazilsouth-01.azurewebsites.net/)
 
+---
+
 ## 🎥 6. Link do Vídeo de Apresentação
 O vídeo de até 5 minutos, demonstrando o funcionamento da API e o cumprimento de todos os requisitos, está disponível no link abaixo:
 
 URL do Vídeo disponível no GoogleDrive: [aqui](https://drive.google.com/file/d/1WE07xmmwkrK0wrAoEj-v4tl0GAleluBJ/view?usp=sharing)
+
+---
 
 ### 🧪 7. Como Testar a API (CRUD)
 
@@ -102,6 +110,8 @@ Use o link do deploy acima para acessar o Swagger. Lá, você pode executar o ci
 | **4. Atualizar Alerta** | `PUT` | `/api/v1/alertas/{id}` | `{"usuarioId": "RM-TESTE-PUT", "tipoAlerta": "Teste Atualizado"}` | `200 OK` (com os dados atualizados) |
 | **5. Excluir Alerta** | `DELETE` | `/api/v1/alertas/{id}` | (Use o ID do passo 1) | `204 No Content` |
 | **6. Confirmar Exclusão**| `GET` | `/api/v1/alertas/{id}` | (Use o ID do passo 1) | `404 Not Found` (provando que foi excluído) |
+
+---
 
 ## 🗂️ 8. Diagrama da Aplicação
 
