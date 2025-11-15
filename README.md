@@ -82,11 +82,11 @@ Em um ambiente de produção, esta API C# não seria pública. Ela seria protegi
 
 ## 🚀 5. Link do Deploy (Azure)
 A API foi publicada em um ambiente de nuvem (Azure App Service). A documentação interativa do Swagger está disponível publicamente no link abaixo:
-URL do Deploy: [aqui](https://ergomind-api-2025-eqb7afdca3dmb5ff.brazilsouth-01.azurewebsites.net/)
+URL do Deploy no AzureWebsites: [aqui](https://ergomind-api-2025-eqb7afdca3dmb5ff.brazilsouth-01.azurewebsites.net/)
 
 ## 🎥 6. Link do Vídeo de Apresentação
 O vídeo de até 5 minutos, demonstrando o funcionamento da API e o cumprimento de todos os requisitos, está disponível no link abaixo:
-URL do Vídeo: [aqui]
+URL do Vídeo disponível no GoogleDrive: [aqui](https://drive.google.com/file/d/1WE07xmmwkrK0wrAoEj-v4tl0GAleluBJ/view?usp=sharing)
 
 ### 🧪 7. Como Testar a API (CRUD)
 
