@@ -19,8 +19,6 @@ Gabriela Trevisan (RM99500), Eduardo Araujo (RM99758) e Rafael Franck (RM550875)
 
 ## ⚙️ 2. Detalhamento de Requisitos (Entregável C#)
 
-Esta API cumpre todos os requisitos da disciplina de C# SOFTWARE DEVELOPMENT.
-
 ### 2.1. Requisito 1: Boas Práticas REST (CRUD Completo)
 A API implementa o CRUD completo para o recurso `AlertaIoT`, usando os verbos HTTP e Status Codes adequados.
 
@@ -84,7 +82,7 @@ Em um ambiente de produção, esta API C# não seria pública. Ela seria protegi
 
 ## 🚀 5. Link do Deploy (Azure)
 A API foi publicada em um ambiente de nuvem (Azure App Service). A documentação interativa do Swagger está disponível publicamente no link abaixo:
-URL do Deploy: [aqui]
+URL do Deploy: [aqui](https://ergomind-api-2025-eqb7afdca3dmb5ff.brazilsouth-01.azurewebsites.net/)
 
 ## 🎥 6. Link do Vídeo de Apresentação
 O vídeo de até 5 minutos, demonstrando o funcionamento da API e o cumprimento de todos os requisitos, está disponível no link abaixo:
