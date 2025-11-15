@@ -82,10 +82,12 @@ Em um ambiente de produção, esta API C# não seria pública. Ela seria protegi
 
 ## 🚀 5. Link do Deploy (Azure)
 A API foi publicada em um ambiente de nuvem (Azure App Service). A documentação interativa do Swagger está disponível publicamente no link abaixo:
+
 URL do Deploy no AzureWebsites: [aqui](https://ergomind-api-2025-eqb7afdca3dmb5ff.brazilsouth-01.azurewebsites.net/)
 
 ## 🎥 6. Link do Vídeo de Apresentação
 O vídeo de até 5 minutos, demonstrando o funcionamento da API e o cumprimento de todos os requisitos, está disponível no link abaixo:
+
 URL do Vídeo disponível no GoogleDrive: [aqui](https://drive.google.com/file/d/1WE07xmmwkrK0wrAoEj-v4tl0GAleluBJ/view?usp=sharing)
 
 ### 🧪 7. Como Testar a API (CRUD)
@@ -101,8 +103,6 @@ Use o link do deploy acima para acessar o Swagger. Lá, você pode executar o ci
 | **5. Excluir Alerta** | `DELETE` | `/api/v1/alertas/{id}` | (Use o ID do passo 1) | `204 No Content` |
 | **6. Confirmar Exclusão**| `GET` | `/api/v1/alertas/{id}` | (Use o ID do passo 1) | `404 Not Found` (provando que foi excluído) |
 
----
-
 ## 🗂️ 8. Diagrama da Aplicação
 
 O diagrama ilustra a arquitetura da **API C# (.NET 8 Minimal API)**. Ele destaca o fluxo do CRUD de 'Alertas' (`/api/v1/alertas`), que atua como o Gateway de Dados IoT, sua interação direta com o `ApiDbContext` (Entity Framework) e a aplicação automática de `Migrations` na inicialização.
@@ -110,5 +110,3 @@ O diagrama ilustra a arquitetura da **API C# (.NET 8 Minimal API)**. Ele destaca
 <div align="center">
     <img src="diagram.png" alt="Diagrama de Arquitetura" width="600"/>
 </div>
-
----
