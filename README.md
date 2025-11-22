@@ -77,7 +77,7 @@ A API estará acessível localmente em http://localhost:5070 (ou https_port simi
 O requisito da entrega menciona instruções de acesso como "(usuário, senha, ... api key, etc)".
 
 ### Por que não há Login/Senha?
-Um sistema de usuário/senha não é aplicável a esta API específica. Conforme o documento da solução (ergo-mind_gs.pdf), esta API C# é um Gateway de IoT, projetada para receber dados de máquinas (sensores). A API principal de Java (SOA) é a que trata da gestão de usuários (login, cadastro, etc.).
+Um sistema de usuário/senha não é aplicável a esta API específica. Conforme a proposta da solução, esta API C# é um Gateway de IoT, projetada para receber dados de máquinas (sensores). A API principal de Java (SOA) é a que trata da gestão de usuários (login, cadastro, etc.).
 
 ### Como seria a proteção real
 Em um ambiente de produção, esta API C# não seria pública. Ela seria protegida por uma "API Key". O dispositivo IoT (sensor) enviaria essa chave secreta no header da requisição para provar que tem permissão para registrar um alerta.
